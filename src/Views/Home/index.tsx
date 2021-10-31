@@ -4,7 +4,6 @@ import Logo from '../../Assets/logo.jpg';
 import { IUser } from '../../Contexts/AuthContext';
 import { StyleSheet } from '../../Utils/StyleSheet';
 
-
 export const Home = () => {
 
     const [username, setUsername] = useState('');
@@ -19,9 +18,9 @@ export const Home = () => {
             setPasswordError('Sua senha deve ter pelo menos 8 caracteres');
             return false;
         }
-        let regex = /[A-Z0-9!-]/;
+        let regex = /[0-9]/;
         if (!regex.test(password)) {
-            setPasswordError('Sua senha deve conter pelo menos um número e uma letra');
+            setPasswordError('Sua senha deve conter pelo menos um número');
             return false;
         }
         regex = /\W/;
@@ -29,7 +28,13 @@ export const Home = () => {
             setPasswordError('Sua senha deve conter pelo menos um caractere especial');
             return false;
         }
+        regex = /[a-zA-Z]/;
+        if (!regex.test(password)) {
+            setPasswordError('Sua senha deve conter pelo menos uma letra');
+            return false;
+        }
         if (wrongPassword) {
+            setPasswordError('');
             setConfirmPasswordError('As senhas não estão iguais');
             return false;
         }
@@ -75,7 +80,7 @@ export const Home = () => {
                     value={password}
                     enterKeyHint='next'
                     type='password' />
-                {passwordError && <label>{passwordError}</label>}
+                {passwordError && <label className={styles.wrongPasswordInput}>{passwordError}</label>}
 
                 <label htmlFor='confirmPassword'
                     style={wrongPassword ? { color: '#ff00006e' } : {}}>Confirmar Senha</label>
@@ -88,7 +93,7 @@ export const Home = () => {
                     enterKeyHint='next'
                     type='password'
                 />
-                {confirmPasswordError && <label>{confirmPasswordError}</label>}
+                {confirmPasswordError && <label className={styles.wrongPasswordInput}>{confirmPasswordError}</label>}
 
                 <button type='submit'>Registrar</button>
             </form>
