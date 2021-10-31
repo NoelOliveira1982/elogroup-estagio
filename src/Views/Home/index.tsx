@@ -57,12 +57,12 @@ export const Home = () => {
     };
 
     return (
-        <div className={styles.sendMessageFormWrapper} onSubmit={handleSignIn}>
+        <div className={styles.sendMessageFormWrapper} >
             <header>
                 <img src={Logo} alt='EloGroup logo' />
             </header>
 
-            <form className={styles.sendMessageForm}>
+            <form className={styles.sendMessageForm} onSubmit={handleSignIn}>
                 <label htmlFor='user'>Usuário</label>
                 <input name='username' id='username'
                     placeholder='Digite o usuário'
