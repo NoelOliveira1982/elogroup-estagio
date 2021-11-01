@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useHistory } from 'react-router';
 import Logo from '../../Assets/logo.jpg';
 import { Button } from '../../Components/Button';
 import { AuthContext } from '../../Contexts/AuthContext';
@@ -6,14 +7,18 @@ import styles from './styles.module.scss';
 
 export const Leads = () => {
 
-    const { setUser, setLeads, leads, user } = useContext(AuthContext);
+    const { setUser, leads } = useContext(AuthContext);
+    const history = useHistory();
 
     const handleDisconnect = () => {
         localStorage.removeItem('@eloGroup:user');
         setUser(null);
+        history.push('/');
     };
 
-    const handleNewLead = () => { };
+    const handleNewLead = () => {
+        history.push('/new-lead');
+    };
 
     return (
         <div className={styles.leadsWrapper}>

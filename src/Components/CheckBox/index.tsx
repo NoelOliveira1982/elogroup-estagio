@@ -1,5 +1,5 @@
 import { ChangeEventHandler } from "react";
-import { StyleSheet } from "../../Utils/StyleSheet";
+import { StyleSheet } from "../../Models/StyleSheet";
 
 interface IProps {
     label: string;

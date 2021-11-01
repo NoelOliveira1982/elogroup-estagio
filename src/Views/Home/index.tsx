@@ -1,11 +1,15 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import styles from './styles.module.scss';
 import Logo from '../../Assets/logo.jpg';
-import { IUser } from '../../Contexts/AuthContext';
-import { StyleSheet } from '../../Utils/StyleSheet';
+import { AuthContext, IUser } from '../../Contexts/AuthContext';
+import { StyleSheet } from '../../Models/StyleSheet';
+import { Button } from '../../Components/Button';
+import { useHistory } from 'react-router';
 
 export const Home = () => {
 
+    const { setUser } = useContext(AuthContext);
+    const history = useHistory();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -52,7 +56,8 @@ export const Home = () => {
                 password: password,
             }
             localStorage.setItem('@eloGroup:user', JSON.stringify(user));
-            console.log('Feito');
+            setUser(user);
+            history.push('/leads');
         }
     };
 
@@ -95,7 +100,7 @@ export const Home = () => {
                 />
                 {confirmPasswordError && <label className={styles.wrongPasswordInput}>{confirmPasswordError}</label>}
 
-                <button type='submit'>Registrar</button>
+                <Button message='Registrar' />
             </form>
         </div>
     );
