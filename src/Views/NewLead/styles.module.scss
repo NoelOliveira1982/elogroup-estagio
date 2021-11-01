@@ -1,26 +1,30 @@
-.sendMessageFormWrapper {
-    background: #1b1b1f;
+.newLeadWrapper {
     padding: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     position: relative;
-    justify-items: center;    
+    justify-items: center;
+
+    header {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        align-items: center;
+    
+        img {
+            margin-right: 50px;
+        }
+    }
 }
 
-.sendMessageForm {
+.newLeadForm {
     width: 75%;
     display: flex;
     flex-direction: column;
     margin-top: 48px;
     background: #202024;
-
-    .wrongPasswordInput {
-        font-size: 16px;
-        color: #ff00006e;
-        font-weight: normal;
-    }
 
     label {
         padding: 18px 24px;
@@ -47,4 +51,3 @@
         }
     }
 }
-

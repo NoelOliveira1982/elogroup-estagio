@@ -1,23 +1,16 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { Lead } from "../Models/Lead";
 
 export interface IUser {
     username: string;
     password: string;
 }
 
-export interface ILead {
-    name: string;
-    type: 'Cliente em Potencial' | 'Dados Confirmados' | 'Reunião Agendada';
-    phone: string;
-    email: string;
-    opportunities: string[];
-}
-
 interface IAuthContextData {
     user: IUser | null;
-    leads: ILead[] | null;
+    leads: Lead[];
     setUser: React.Dispatch<React.SetStateAction<IUser | null>>
-    setLeads: React.Dispatch<React.SetStateAction<ILead[]>>
+    setLeads: React.Dispatch<React.SetStateAction<Lead[]>>
 }
 
 interface IAuthProvider {
@@ -29,7 +22,7 @@ export const AuthContext = createContext({} as IAuthContextData);
 export function AuthProvider(props: IAuthProvider) {
 
     const [user, setUser] = useState<IUser | null>(null);
-    const [leads, setLeads] = useState<ILead[]>([]);
+    const [leads, setLeads] = useState<Lead[]>([]);
 
     useEffect(() => {
         getProfile();

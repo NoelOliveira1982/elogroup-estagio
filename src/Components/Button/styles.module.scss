@@ -1,0 +1,22 @@
+.button {
+    align-self: flex-end;
+    border: 0;
+    background: #c9a328;
+    margin: 24px;
+    cursor: pointer;
+    padding: 0 32px;
+    height: 40px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover{
+        filter: brightness(0.9);
+    }
+}
