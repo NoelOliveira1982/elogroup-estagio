@@ -85,7 +85,7 @@ export const Home = () => {
                     value={password}
                     enterKeyHint='next'
                     type='password' />
-                {passwordError && <label className={styles.wrongPasswordInput}>{passwordError}</label>}
+                {passwordError && <label className={styles.wrongPasswordLabel}>{passwordError}</label>}
 
                 <label htmlFor='confirmPassword'
                     style={wrongPassword ? { color: '#ff00006e' } : {}}>Confirmar Senha</label>
@@ -95,10 +95,10 @@ export const Home = () => {
                     onChange={event => setConfirmPassword(event.target.value)}
                     value={confirmPassword}
                     style={wrongPassword ? stylesRender.errorInput : {}}
-                    enterKeyHint='next'
+                    enterKeyHint='send'
                     type='password'
                 />
-                {confirmPasswordError && <label className={styles.wrongPasswordInput}>{confirmPasswordError}</label>}
+                {confirmPasswordError && <label className={styles.wrongPasswordLabel}>{confirmPasswordError}</label>}
 
                 <Button message='Registrar' />
             </form>

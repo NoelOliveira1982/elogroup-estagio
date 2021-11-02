@@ -64,6 +64,7 @@ export const Leads = () => {
 
     useEffect(() => {
         if (!localStorage.getItem('@eloGroup:user')) {
+            localStorage.removeItem('@eloGroup:leads');
             history.push('/');
         }
     }, []);

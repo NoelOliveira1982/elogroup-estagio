@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 import Logo from '../../Assets/logo.jpg';
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Contexts/AuthContext';
 import { CheckBox } from '../../Components/CheckBox';
 import { Button } from '../../Components/Button';
@@ -22,11 +22,14 @@ export const NewLead = () => {
         let aux = opportunities.map(item => item);
         aux[index] = !aux[index];
         setOpportunities(aux);
+        if (!opportunities.includes(false)) {
+            setIsAllMarked(false);
+        }
     };
 
     const handleMarkAllOpportunities = () => {
         setIsAllMarked(!isAllMarked);
-        opportunities.fill(!isAllMarked);
+        setOpportunities(opportunities.fill(!isAllMarked));
     };
 
     const handleOnSubmit = (event: FormEvent) => {
@@ -52,6 +55,13 @@ export const NewLead = () => {
         history.push('/leads');
     };
 
+    useEffect(() => {
+        if (!localStorage.getItem('@eloGroup:user')) {
+            localStorage.removeItem('@eloGroup:leads');
+            history.push('/');
+        }
+    }, []);
+
     return (
         <div className={styles.newLeadWrapper}>
             <header>
@@ -65,6 +75,7 @@ export const NewLead = () => {
                     placeholder='Digite o nome da lead'
                     required={true}
                     onChange={event => setName(event.target.value)}
+                    enterKeyHint='next'
                     value={name} />
 
                 <label>Telefone</label>
@@ -74,6 +85,7 @@ export const NewLead = () => {
                     maxLength={15}
                     required={true}
                     type='tel'
+                    enterKeyHint='next'
                     onChange={event => {
                         const phoneMask = event.target.value.replace(/(\d{2})(\d{5})(\d{4})/, (_, arg1, arg2, arg3) => {
                             return `(${arg1}) ${arg2}-${arg3}`;
@@ -88,12 +100,13 @@ export const NewLead = () => {
                     required={true}
                     type='email'
                     onChange={event => setEmail(event.target.value)}
+                    enterKeyHint='next'
                     value={email} />
 
                 <label>Oportunidades</label>
                 <CheckBox label='Selecionar todos'
                     onChange={handleMarkAllOpportunities}
-                    checked={isAllMarked} />
+                    checked={!opportunities.includes(false)} />
                 <CheckBox label='RPA'
                     onChange={() => handleMarkCheckBox(0)}
                     checked={opportunities[0]} />
