@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { Column, columnsInitial } from "../Models/Columns";
 import { Lead } from "../Models/Lead";
 
 export interface IUser {
@@ -9,8 +10,10 @@ export interface IUser {
 interface IAuthContextData {
     user: IUser | null;
     leads: Lead[];
-    setUser: React.Dispatch<React.SetStateAction<IUser | null>>
-    setLeads: React.Dispatch<React.SetStateAction<Lead[]>>
+    columns: Column[];
+    setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+    setLeads: React.Dispatch<React.SetStateAction<Lead[]>>;
+    setColumns: React.Dispatch<React.SetStateAction<Column[]>>;
 }
 
 interface IAuthProvider {
@@ -23,6 +26,8 @@ export function AuthProvider(props: IAuthProvider) {
 
     const [user, setUser] = useState<IUser | null>(null);
     const [leads, setLeads] = useState<Lead[]>([]);
+    const [columns, setColumns] = useState(columnsInitial);
+
 
     useEffect(() => {
         getProfile();
@@ -40,7 +45,7 @@ export function AuthProvider(props: IAuthProvider) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, leads, setUser, setLeads }}>
+        <AuthContext.Provider value={{ user, leads, columns, setUser, setLeads, setColumns }}>
             {props.children}
         </AuthContext.Provider>
     );

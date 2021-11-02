@@ -5,10 +5,12 @@ import { AuthContext } from '../../Contexts/AuthContext';
 import { CheckBox } from '../../Components/CheckBox';
 import { Button } from '../../Components/Button';
 import { LeadConstructor } from '../../Models/Lead';
+import { useHistory } from 'react-router';
 
 export const NewLead = () => {
 
     const QUANTITY_OPPORTUNITIES = 4;
+    const history = useHistory();
     const { setLeads, user, leads } = useContext(AuthContext);
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -30,7 +32,11 @@ export const NewLead = () => {
     const handleOnSubmit = (event: FormEvent) => {
         event.preventDefault();
 
+        if (!opportunities.includes(true)) {
+            return;
+        }
         const lead = new LeadConstructor()
+            .setId(leads.length + 1)
             .setName(name)
             .setEmail(email)
             .setOpportunities(opportunities)
@@ -41,7 +47,9 @@ export const NewLead = () => {
         aux.push(lead);
         setLeads(aux);
         console.log(leads);
-        localStorage.setItem('eloGroup:leads', JSON.stringify(leads));
+        localStorage.setItem('@eloGroup:leads', JSON.stringify(leads));
+        alert('Lead salva com sucesso!');
+        history.push('/leads');
     };
 
     return (
@@ -62,6 +70,7 @@ export const NewLead = () => {
                 <label>Telefone</label>
                 <input
                     placeholder='ex: 99999999999'
+                    minLength={11}
                     maxLength={15}
                     required={true}
                     type='tel'
@@ -97,6 +106,7 @@ export const NewLead = () => {
                 <CheckBox label='BPM'
                     onChange={() => handleMarkCheckBox(3)}
                     checked={opportunities[3]} />
+                {!opportunities.includes(true) && <label className={styles.errorLabel}>Selecione pelo menos uma opção</label>}
 
                 <Button message='Salvar' type='submit' />
             </form>

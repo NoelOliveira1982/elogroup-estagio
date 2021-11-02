@@ -1,16 +1,18 @@
 import { IUser } from "../Contexts/AuthContext";
 
-type Type = 'Cliente em Potencial' | 'Dados Confirmados' | 'Reunião Agendada';
+export type TypeLead = 'Cliente em Potencial' | 'Dados Confirmados' | 'Reunião Agendada';
 
-class Lead {
+export class Lead {
+    id: number;
     user: IUser | null;
     name: string;
-    type: Type;
+    type: TypeLead;
     phone: string;
     email: string;
     opportunities: boolean[];
 
-    constructor(user: IUser | null, name: string, type: Type, phone: string, email: string, opportunities: boolean[]) {
+    constructor(id: number, user: IUser | null, name: string, type: TypeLead, phone: string, email: string, opportunities: boolean[]) {
+        this.id = id;
         this.user = user;
         this.name = name;
         this.type = type;
@@ -21,14 +23,16 @@ class Lead {
 }
 
 export class LeadConstructor {
+    id: number;
     user: IUser | null;
     name: string;
-    type: Type;
+    type: TypeLead;
     phone: string;
     email: string;
     opportunities: boolean[];
 
     constructor() {
+        this.id = 0;
         this.user = null;
         this.name = '';
         this.type = 'Cliente em Potencial';
@@ -38,7 +42,12 @@ export class LeadConstructor {
     }
 
     create(): Lead {
-        return new Lead(this.user, this.name, this.type, this.phone, this.email, this.opportunities);
+        return new Lead(this.id, this.user, this.name, this.type, this.phone, this.email, this.opportunities);
+    }
+
+    setId(id: number): LeadConstructor {
+        this.id = id;
+        return this;
     }
 
     setUser(user: IUser | null): LeadConstructor {
