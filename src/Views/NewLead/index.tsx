@@ -62,6 +62,13 @@ export const NewLead = () => {
         }
     }, []);
 
+    useEffect(() => {
+        const leads = localStorage.getItem('@eloGroup:leads');
+        if (leads) {
+            setLeads(JSON.parse(leads));
+        }
+    }, [])
+
     return (
         <div className={styles.newLeadWrapper}>
             <header>
