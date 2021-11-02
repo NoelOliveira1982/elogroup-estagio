@@ -35,7 +35,7 @@ export const NewLead = () => {
     const handleOnSubmit = (event: FormEvent) => {
         event.preventDefault();
 
-        if (!opportunities.includes(true)) {
+        if ((!opportunities.includes(true)) || (new RegExp(/[a-zA-z]/).test(phone))) {
             return;
         }
         const lead = new LeadConstructor()
@@ -93,6 +93,7 @@ export const NewLead = () => {
                         setPhone(phoneMask);
                     }}
                     value={phone} />
+                {new RegExp(/[a-zA-z]/).test(phone) && <label className={styles.errorLabel}>Coloque um telefone válido</label>}
 
                 <label>E-mail</label>
                 <input

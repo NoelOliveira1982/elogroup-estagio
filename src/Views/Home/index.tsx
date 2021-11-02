@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useContext, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import Logo from '../../Assets/logo.jpg';
 import { AuthContext, IUser } from '../../Contexts/AuthContext';
@@ -45,7 +45,7 @@ export const Home = () => {
         setConfirmPasswordError('');
         setPasswordError('');
         return true;
-    }
+    };
 
     const handleSignIn = (event: FormEvent) => {
         event.preventDefault();
@@ -62,6 +62,12 @@ export const Home = () => {
             history.push('/leads');
         }
     };
+
+    useEffect(() => {
+        if (localStorage.getItem('@eloGroup:user')) {
+            history.push('/leads');
+        }
+    }, []);
 
     return (
         <div className={styles.sendMessageFormWrapper} >

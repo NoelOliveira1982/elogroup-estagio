@@ -13,6 +13,6 @@ export const Button = (props: IButtonProps) => {
         <button type={props.type}
             className={styles.button}
             onClick={props.onClick}
-            style={props.style} >{props.message}</button>
+            style={props.style}>{props.message}</button>
     );
 }
