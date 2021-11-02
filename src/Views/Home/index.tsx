@@ -8,7 +8,7 @@ import { useHistory } from 'react-router';
 
 export const Home = () => {
 
-    const { setUser } = useContext(AuthContext);
+    const { setUser, setLeads } = useContext(AuthContext);
     const history = useHistory();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -56,6 +56,8 @@ export const Home = () => {
                 password: password,
             }
             localStorage.setItem('@eloGroup:user', JSON.stringify(user));
+            localStorage.removeItem('@eloGroup:leads');
+            setLeads([]);
             setUser(user);
             history.push('/leads');
         }
